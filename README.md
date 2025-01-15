@@ -15,3 +15,8 @@ Shadow Casting in C++ using raylib
 `cmake ..`  
 `make`  
 `./shadowcast`  
+
+
+## Usage
+
+`--no-vsync`        :       Do not limit frame rate to monitor refresh rate

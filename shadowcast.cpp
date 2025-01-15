@@ -1,7 +1,7 @@
 #include <iostream>
 #include <raylib.h>
-#include <limits>
 #include <string>
+#include <cstring>
 
 enum TileComponent {
     FREE,
@@ -50,15 +50,27 @@ Vector2 CalcIntersection(Line l1, Line l2) {
     };
 }
 
-int main() {
-    
-    InitWindow(800, 800, "RayTracing");
+int main(int argc, char *argv[]) {
 
-    uint TileBox[80][80] = {0};
+    bool vsync = true;
+
+    for(int i = 0; i < argc; i++) {
+        if(strcmp(argv[i], "--no-vsync") == 0) {
+            vsync = false;
+        }
+    }
+    
+    InitWindow(800, 800, "Shadow Casting");
+
+    unsigned int TileBox[80][80] = {0};
 
     Image lightimage = LoadImage("./assets/light.jpg");
     Texture light = LoadTextureFromImage(lightimage);
     UnloadImage(lightimage);
+
+    if(vsync) {
+        SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
+    }
 
     std::cout << "\nInstructions:\n\n"
     "Right Mouse Button: add obstruction\n"
@@ -78,6 +90,9 @@ int main() {
         BeginDrawing();
 
         ClearBackground(BLACK);
+
+        std::string fpstext = "FPS: ";
+        fpstext.append(std::to_string(GetFPS()));
 
         if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             DrawTexture(light, GetMouseX() - light.width / 2, GetMouseY() - light.height / 2, WHITE);
@@ -149,6 +164,8 @@ int main() {
                 }
             }
         }
+
+        DrawText(fpstext.c_str(), 10, 10, 10, WHITE);
 
         EndDrawing();
     }
