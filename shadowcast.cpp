@@ -60,12 +60,17 @@ int main() {
     Texture light = LoadTextureFromImage(lightimage);
     UnloadImage(lightimage);
 
+    std::cout << "\nInstructions:\n\n"
+    "Right Mouse Button: add obstruction\n"
+    "Right Mouse Button + del: remove obstruction\n"
+    "Left Mouse Button: light source " << std::endl;
+
     while(!WindowShouldClose()) {
 
-        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
             TileBox[GetMouseX() / 10][GetMouseY() / 10] = BLOCK;
         }
-        if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
+        if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && IsKeyDown(KEY_DELETE)) {
             TileBox[GetMouseX() / 10][GetMouseY() / 10] = FREE;
         }
 
@@ -74,13 +79,13 @@ int main() {
 
         ClearBackground(BLACK);
 
-        if(IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) {
+        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             DrawTexture(light, GetMouseX() - light.width / 2, GetMouseY() - light.height / 2, WHITE);
         }
         for(int i = 0; i < 80; i++) {
             for(int j = 0; j < 80; j++) {
                 if(TileBox[i][j] == BLOCK) {
-                    if(IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) {
+                    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
                         Vector2 btl = (Vector2){i * 10, j * 10};
                         Vector2 btr = (Vector2){btl.x + 10, btl.y};
                         Vector2 bbl = (Vector2){btl.x, btl.y + 10};
