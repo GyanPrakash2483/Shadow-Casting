@@ -9,9 +9,9 @@ Shadow Casting in C++ using raylib
 
 ## Building from source
 
-`git clone https://github.com/GyanPrakash2483/Shadow-Casting.git --recursive`
-`cd Shadow-Casting`
-`mkdir build && cd build`
-`cmake ..`
-`make`
-`./shadowcast`
+`git clone https://github.com/GyanPrakash2483/Shadow-Casting.git --recursive`  
+`cd Shadow-Casting`  
+`mkdir build && cd build`  
+`cmake ..`  
+`make`  
+`./shadowcast`  
